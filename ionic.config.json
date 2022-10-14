@@ -1,0 +1,7 @@
+{
+  "name": "jugdgeApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
