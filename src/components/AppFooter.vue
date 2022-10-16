@@ -1,9 +1,12 @@
 <template>
-  <ion-footer>
+  <ion-footer class="ion-no-border">
     <ion-toolbar class="centered">
       <ion-title class="ion-text-center">
         <router-link to="/">
-          <ion-icon :icon="planetSharp" color="dark"></ion-icon>
+          <ion-icon :icon="planetOutline" class="selected-icon-"></ion-icon>
+        </router-link>
+        <router-link to="/">
+          <ion-icon :icon="personOutline" color="dark"></ion-icon>
         </router-link>
       </ion-title>
     </ion-toolbar>
@@ -13,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { IonFooter, IonToolbar, IonIcon, IonTitle } from "@ionic/vue";
-import { planetSharp } from "ionicons/icons";
+import { planetOutline, personOutline } from "ionicons/icons";
 
 export default defineComponent({
   name: "PersonCard",
@@ -25,7 +28,8 @@ export default defineComponent({
   },
   setup() {
     return {
-      planetSharp,
+      planetOutline,
+      personOutline,
     };
   },
 });
@@ -38,11 +42,14 @@ export default defineComponent({
   padding: 1rem;
 }
 ion-toolbar {
-  --background: #c09d2b79;
+  --background: hsl(0deg 0% 100%);
   --box-shadow: none;
 }
 ion-icon {
-  /* margin: 0 1rem; */
+  margin: 0 1rem;
   font-size: 2.5rem;
+}
+.selected-icon {
+  color: var(--ion-color-primary);
 }
 </style>

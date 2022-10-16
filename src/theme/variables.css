@@ -2,11 +2,12 @@
 http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap");
 :root {
-  --ion-background-color: #ffc629;
+  --ion-background-color: hsl(260deg 33% 98%);
   --ion-background-color-rgb: 18, 18, 18;
-
-  --ion-text-color: #ffffff;
+  --ion-font-family: "Poppins", sans-serif;
+  --ion-text-color: #000;
   --ion-text-color-rgb: 255, 255, 255;
 
   --ion-border-color: #222222;

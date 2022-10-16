@@ -10,15 +10,6 @@
         'background-repeat': 'no-repeat',
       }"
     >
-      <!-- <div class="social-buttons">
-        <button>
-          <img src="../../public/assets/icons/heart.svg" alt="" /></button
-        ><button>
-          <img src="../../public/assets/icons/heart.svg" alt="" /></button
-        ><button>
-          <img src="../../public/assets/icons/heart.svg" alt="" />
-        </button>
-      </div> -->
       <div class="text">
         <div class="name-wrapper">
           <div class="name">{{ person.name }}</div>
@@ -36,36 +27,71 @@
       </button>
     </div>
     <div class="bottom">
-      <div class="desc"></div>
-      <div class="buttons">
-        <button class="like">
-          <!-- <i class="material-icons">person</i> -->
-          <div class="height">Altura</div></button
-        ><button class="status">
-          <!-- <i class="material-icons">search</i> -->
-          <div class="height">Edad</div></button
-        ><button class="horo">
-          <!-- <i class="material-icons">share</i> -->
-          <div class="height">Clase Social</div>
-        </button>
-      </div>
+      <ion-grid class="buttons" center text-center>
+        <ion-row>
+          <ion-col>
+            <button class="play" v-if="!unlockedCard" @click="unlockCard()">
+              <ion-icon :icon="playCircle" />
+            </button>
+            <button class="playing" v-if="unlockedCard">
+              <ion-icon :icon="pauseCircle" />
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
+import { playCircle, pauseCircle } from "ionicons/icons";
+import { IonGrid, IonRow, IonCol, IonIcon } from "@ionic/vue";
 export default defineComponent({
   name: "PersonCard",
+  emits: ["unlocked-card"],
   props: {
     person: {
       type: Object,
       required: true,
     },
+    unlockedCard: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  watch: {
+    unlockedCard: function (value) {
+      this.addCustomStyles();
+    },
+  },
+  components: {
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonIcon,
   },
   setup() {
-    return {};
+    return {
+      playCircle,
+      pauseCircle,
+    };
+  },
+  methods: {
+    addCustomStyles() {
+      const personCard = document.querySelector(".top");
+      if (!this.unlockedCard) {
+        personCard?.classList.add("blur");
+      } else {
+        personCard?.classList.remove("blur");
+      }
+    },
+    unlockCard() {
+      this.$emit("unlocked-card", true);
+    },
+  },
+  mounted() {
+    this.addCustomStyles();
   },
 });
 </script>
@@ -83,18 +109,13 @@ export default defineComponent({
   background: #fffff9;
   border-radius: 1rem;
   box-shadow: 0px 30px 20px -10px rgba(0, 0, 0, 0.2);
-  width: 90%;
   height: 70%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: 90%;
+  min-width: 90%;
 }
-.card * {
-  transition: all 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
+
 .card button {
   border: none;
   cursor: pointer;
@@ -106,8 +127,7 @@ export default defineComponent({
   color: #fffff9;
   border-radius: 1rem 1rem 0rem 0rem;
   position: relative;
-  width: 100%;
-  height: 100%;
+  height: 30rem;
 }
 .card .top:after {
   position: absolute;
@@ -175,7 +195,7 @@ export default defineComponent({
   display: grid;
   place-content: center;
   padding: 1rem;
-  background-color: #f3efa1;
+  background-color: hsl(260deg 33% 98%);
   border-radius: 0rem 0rem 1rem 1rem;
 }
 .card .bottom .desc {
@@ -191,7 +211,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fdda64;
+  background-color: transparent;
   border-radius: 1em;
   padding: 0.2rem;
 }
@@ -237,5 +257,21 @@ export default defineComponent({
 .icon {
   width: 20px;
   height: 20px;
+}
+ion-grid {
+  height: 100%;
+}
+ion-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blur {
+  filter: blur(5px);
+  transition: all 5s ease-in-out;
+  animation: blur 5s ease-in-out;
+}
+ion-icon {
+  font-size: 3.5rem;
 }
 </style>
