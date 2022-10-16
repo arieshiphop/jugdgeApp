@@ -1,13 +1,17 @@
 <template>
-  <article class="timer bounceInRight" v-if="unlockedCardData">
-    <h3>{{ countDownTime }}</h3>
+  <article class="timer-full bounceInRight" v-if="unlockedCardData">
+    <ion-text>Tiempo restante:</ion-text>
+    <article class="timer">
+      <ion-progress-bar :value="countDownTimeProgress"></ion-progress-bar>
+    </article>
   </article>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { playCircleSharp } from "ionicons/icons";
-
+import { IonProgressBar, IonText } from "@ionic/vue";
+import global from "../helpers/global.js";
 export default defineComponent({
   name: "StartTimer",
   emits: ["locked-card"],
@@ -17,42 +21,82 @@ export default defineComponent({
       required: true,
     },
   },
+
+  components: {
+    IonProgressBar,
+    IonText,
+  },
+
   data() {
     return {
-      countDownTime: 5,
+      countDownTimeDefault: 5,
+      countDownTime: 6, // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
+      countDownTimeProgress: 1,
       unlockedCardData: this.unlockedCard,
+      periodMs: 50,
+      funcs: global.methods,
     };
+  },
+  mounted() {
+    this.funcs.preloadAudio("glock", "glock.mp3", false);
   },
   watch: {
     unlockedCard: function (value) {
       this.unlockedCardData = value;
-      this.startCounter();
+      if (value === true) {
+        this.startCounter();
+      }
     },
   },
+
   methods: {
     startCounter() {
+      this.funcs.reproduceAudio("glock", 0.6);
       const interval = setInterval(() => {
+        this.updateProgressTimer();
         if (!this.unlockedCard) {
           clearInterval(interval);
         }
         if (this.countDownTime <= 0) {
           this.stopCounter(interval);
         }
-        this.countDownTime--;
-      }, 1000);
+      }, this.periodMs);
     },
+
+    updateProgressTimer() {
+      this.countDownTime -= this.periodMs / 1000;
+      this.countDownTimeProgress =
+        this.countDownTime / this.countDownTimeDefault;
+    },
+
     stopCounter(interval: any) {
+      this.funcs.stopAudio("glock");
       clearInterval(interval);
-      const timer = document.querySelector(".timer");
-      timer?.classList.add("bounceOutLeft");
-      this.countDownTime = 20;
+      this.addBounceOutClassToTimer();
       setTimeout(() => {
-        this.unlockedCardData = false;
-        this.$emit("locked-card", this.unlockedCardData);
+        this.lockCard();
+        this.resetTimes();
       }, 350);
       return;
     },
+
+    resetTimes() {
+      this.countDownTimeProgress = 1;
+      // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
+      this.countDownTime = this.countDownTimeDefault + 1;
+    },
+
+    addBounceOutClassToTimer() {
+      const timer = document.querySelector(".timer");
+      timer?.classList.add("bounceOutLeft");
+    },
+
+    lockCard() {
+      this.unlockedCardData = false;
+      this.$emit("locked-card", this.unlockedCardData);
+    },
   },
+
   setup() {
     return {
       playCircleSharp,
@@ -62,12 +106,29 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.timer-full {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 15rem;
+  text-align: center;
+}
 .timer {
-  margin: 0px auto;
-  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0rem 2rem;
+  width: 100%;
   border-radius: 0.4rem;
   margin-bottom: 1rem;
-  box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.2);
+  height: 3rem;
+  background: rgba(255, 244, 0, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .timer h3 {
   font-size: 2rem;

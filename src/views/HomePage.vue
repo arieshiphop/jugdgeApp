@@ -23,7 +23,6 @@
 import { defineComponent } from "vue";
 import { IonPage } from "@ionic/vue";
 import PersonCard from "../components/PersonCard.vue";
-import PrejuiceOptions from "../components/PrejuiceOptions.vue";
 import StartTimer from "@/components/StartTimer.vue";
 export default defineComponent({
   name: "HomePage",

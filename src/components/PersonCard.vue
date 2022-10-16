@@ -61,7 +61,7 @@ export default defineComponent({
     },
   },
   watch: {
-    unlockedCard: function (value) {
+    unlockedCard: function () {
       this.addCustomStyles();
     },
   },
