@@ -25,6 +25,7 @@
     "cordova-plugin-file": "^7.0.0",
     "cordova-plugin-media": "^6.1.0",
     "core-js": "^3.6.5",
+    "firebase": "^9.12.1",
     "ionicons": "^6.0.3",
     "standard": "^17.0.0",
     "vue": "^3.2.21",

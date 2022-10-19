@@ -87,7 +87,7 @@ export default defineComponent({
       }
     },
     unlockCard() {
-      this.$emit("unlocked-card", true);
+      return this.$emit("unlocked-card", true);
     },
   },
   mounted() {
@@ -268,8 +268,6 @@ ion-row {
 }
 .blur {
   filter: blur(5px);
-  transition: all 5s ease-in-out;
-  animation: blur 5s ease-in-out;
 }
 ion-icon {
   font-size: 3.5rem;
