@@ -19,8 +19,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { IonPage } from "@ionic/vue";
-import PersonCard from "../components/PersonCard.vue";
+import PersonCard from "@/components/PersonCard.vue";
 import StartTimer from "@/components/StartTimer.vue";
+import { UsersService } from "@/services/users.service";
+import Person from "@/models/person.model";
 export default defineComponent({
   name: "HomePage",
   components: {
@@ -31,28 +33,8 @@ export default defineComponent({
   data() {
     return {
       unlockedCard: false,
-      persons: [
-        {
-          id: 1,
-          name: "Jose Luis",
-          ubication: "Bilbao",
-          picture:
-            "https://www.okchicas.com/wp-content/uploads/2020/10/los-modelos-mas-guapos-y-exitosos-del-2020-1.png",
-        },
-        {
-          id: 2,
-          name: "Josefino",
-          ubication: "Zaragoza",
-          picture:
-            "https://i.pinimg.com/550x/ca/36/cc/ca36cce3d4ca947e5f3eaf39c4b3bf7e.jpg",
-        },
-      ],
-      actualPerson: {
-        id: 0,
-        name: "",
-        ubication: "",
-        picture: "",
-      },
+      persons: [] as Person[],
+      actualPerson: {} as Person,
     };
   },
   methods: {
@@ -63,6 +45,13 @@ export default defineComponent({
       this.unlockedCard = value;
       this.changePerson();
     },
+    getPersons() {
+      const usersService = new UsersService();
+      usersService.getUsersData().then((response: any) => {
+        this.persons = response;
+        this.actualPerson = this.persons[0];
+      });
+    },
     changePerson() {
       const actualPersonIndex = this.persons.indexOf(this.actualPerson);
       if (actualPersonIndex > -1) {
@@ -72,7 +61,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.actualPerson = this.persons[0];
+    this.getPersons();
   },
 });
 </script>

@@ -29,8 +29,8 @@ export default defineComponent({
 
   data() {
     return {
-      countDownTimeDefault: 5,
-      countDownTime: 6, // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
+      countDownTimeDefault: 15,
+      countDownTime: 16, // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
       countDownTimeProgress: 1,
       unlockedCardData: this.unlockedCard,
       periodMs: 50,
