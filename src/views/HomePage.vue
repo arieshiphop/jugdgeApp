@@ -22,6 +22,7 @@ import { IonPage } from "@ionic/vue";
 import PersonCard from "@/components/PersonCard.vue";
 import StartTimer from "@/components/StartTimer.vue";
 import { UsersService } from "@/services/users.service";
+import { UserQuestionsService } from "@/services/user.questions.service";
 import Person from "@/models/person.model";
 export default defineComponent({
   name: "HomePage",
@@ -35,6 +36,7 @@ export default defineComponent({
       unlockedCard: false,
       persons: [] as Person[],
       actualPerson: {} as Person,
+      userQuestionsService: new UserQuestionsService(),
     };
   },
   methods: {
@@ -50,6 +52,7 @@ export default defineComponent({
       usersService.getUsersData().then((response: any) => {
         this.persons = response;
         this.actualPerson = this.persons[0];
+        this.userQuestionsService.getQuestionsData(this.actualPerson.id);
       });
     },
     changePerson() {

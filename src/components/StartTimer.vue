@@ -29,8 +29,8 @@ export default defineComponent({
 
   data() {
     return {
-      countDownTimeDefault: 15,
-      countDownTime: 16, // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
+      countDownTimeDefault: 3,
+      countDownTime: 4, // 1 segundo extra, porqué es el segundo que tarda en salir la animación del slider.
       countDownTimeProgress: 1,
       unlockedCardData: this.unlockedCard,
       periodMs: 50,
@@ -39,6 +39,9 @@ export default defineComponent({
   },
   mounted() {
     this.funcs.preloadAudio("glock", "glock.mp3", false);
+  },
+  unmounted() {
+    this.funcs.unloadAudio("glock");
   },
   watch: {
     unlockedCard: function (value) {

@@ -26,6 +26,11 @@ export default {
         isUrl: isUrl,
       });
     },
+    unloadAudio(id) {
+      NativeAudio.unload({
+        assetId: id,
+      });
+    },
     stopAudio(id) {
       NativeAudio.stop({
         assetId: id,
