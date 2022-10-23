@@ -12,7 +12,25 @@ export class UserQuestionsService {
         if (error) {
             console.log(error);
         }
-        console.log(data);
-        return data
+        return this.proccesQuestions(data)
+    }
+    proccesQuestions(results){
+        const questionsList = [] as any;
+        for(const question of results){
+            const questionData = question.questions.question
+            const answers = Object.values(questionData)[0];
+            const questionObject = {
+                'question': Object.keys(questionData)[0],
+                'answers': this.proccesAnswersList(answers),
+                'user_questions_id': question.questions.id
+            }
+            questionsList.push(questionObject)
+        }
+        return questionsList 
+    }
+    proccesAnswersList(answers){
+        const answersList = answers.replace(/['"]+/g, '').replace(/[[\]']+/g,'')
+        const answersListSplitted = answersList.split(',')
+        return answersListSplitted
     }
 }

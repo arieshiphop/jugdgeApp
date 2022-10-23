@@ -6,7 +6,7 @@ http://ionicframework.com/docs/theming/ */
 :root {
   --ion-background-color: hsl(260deg 33% 98%);
   --ion-background-color-rgb: 18, 18, 18;
-  --ion-font-family: "Poppins", sans-serif;
+  --ion-font-family: "Poppins", Impact, sans-serif;
   --ion-text-color: #000;
   --ion-text-color-rgb: 255, 255, 255;
 
