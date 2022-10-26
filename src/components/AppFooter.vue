@@ -2,11 +2,17 @@
   <ion-footer class="ion-no-border">
     <ion-toolbar class="centered">
       <ion-title class="ion-text-center">
-        <router-link to="/">
-          <ion-icon :icon="planetOutline" class="selected-icon-"></ion-icon>
-        </router-link>
-        <router-link to="/">
-          <ion-icon :icon="personOutline" color="dark"></ion-icon>
+        <router-link
+          :to="icon.path"
+          v-for="icon of icons"
+          :key="icon.path"
+          @click="setActiveFooterIcon(icon)"
+        >
+          <ion-icon
+            :icon="icon.icon"
+            class="selected-icon"
+            :color="icon.color"
+          ></ion-icon>
         </router-link>
       </ion-title>
     </ion-toolbar>
@@ -23,8 +29,37 @@ export default defineComponent({
   components: {
     IonFooter,
     IonToolbar,
-    IonIcon,
     IonTitle,
+    IonIcon,
+  },
+  data() {
+    return {
+      icons: [
+        {
+          icon: planetOutline,
+          color: "primary",
+          path: "/home",
+        },
+        {
+          icon: personOutline,
+          color: "dark",
+          path: "/profile",
+        },
+      ],
+    };
+  },
+  methods: {
+    setActiveFooterIcon(icon) {
+      icon.color = "primary";
+      this.deleteColorFromIcons(icon);
+    },
+    deleteColorFromIcons(icon) {
+      this.icons.forEach((element) => {
+        if (element.path != icon.path) {
+          element.color = "dark";
+        }
+      });
+    },
   },
   setup() {
     return {

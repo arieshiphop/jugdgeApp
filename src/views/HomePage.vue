@@ -29,7 +29,6 @@ import { UsersService } from "@/services/users.service";
 import { UserQuestionsService } from "@/services/user.questions.service";
 import Person from "@/models/person.model";
 import PersonQuestions from "@/components/PersonQuestions.vue";
-
 export default defineComponent({
   name: "HomePage",
   components: {
@@ -45,6 +44,7 @@ export default defineComponent({
       actualPerson: {} as Person,
       userQuestionsService: new UserQuestionsService(),
       lockedQuestions: true,
+      usersService: new UsersService(),
       actualPersonQuestions: [],
     };
   },
@@ -58,8 +58,7 @@ export default defineComponent({
   },
   methods: {
     async getPersons() {
-      const usersService = new UsersService();
-      usersService.getUsersData().then((response: any) => {
+      this.usersService.getUsersData().then((response: any) => {
         this.persons = response;
         this.actualPerson = this.persons[0];
       });
