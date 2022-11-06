@@ -1,14 +1,16 @@
 <template>
   <ion-page>
     <div class="login-page">
-      <button
-        @click.prevent="register"
-        class="btn btn-block social-login google"
-      >
-        <span class="social-icons">
-          <i class="fab fa-google fa-lg"> </i>
+      <button @click.prevent="register">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+
+        <span class="front text">
+          <span>
+            <img src="../../public/assets/icons/google-logo.svg" alt="" />
+          </span>
+          <p>Iniciar sesión</p>
         </span>
-        <span class="align-middle">Login with Google</span>
       </button>
     </div>
   </ion-page>
@@ -39,6 +41,89 @@ export default defineComponent({
 </script>
 
 <style scoped>
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    rgb(255, 255, 255) 0%,
+    rgb(215, 215, 215) 8%,
+    rgb(111, 111, 111) 2%,
+    rgb(204, 204, 204) 100%
+  );
+}
+
+.front {
+  display: flex;
+  gap: 1rem;
+  text-align: center;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: rgb(19, 19, 19);
+  background: rgb(212, 212, 212);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+button:hover .shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
 .google {
   background-color: #dc4c39;
   color: #fff;

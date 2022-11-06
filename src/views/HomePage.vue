@@ -51,7 +51,7 @@ export default defineComponent({
   watch: {
     actualPerson: async function () {
       let questions = await this.userQuestionsService.getQuestionsData(
-        this.actualPerson.id
+        this.actualPerson.id_user
       );
       this.actualPersonQuestions = questions;
     },

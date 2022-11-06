@@ -1,5 +1,5 @@
 <template>
-  <ion-footer class="ion-no-border">
+  <ion-footer class="ion-no-border" v-if="canBeShowed">
     <ion-toolbar class="centered">
       <ion-title class="ion-text-center">
         <router-link
@@ -23,7 +23,7 @@
 import { defineComponent } from "vue";
 import { IonFooter, IonToolbar, IonIcon, IonTitle } from "@ionic/vue";
 import { planetOutline, personOutline } from "ionicons/icons";
-
+import { UsersService } from "@/services/users.service";
 export default defineComponent({
   name: "PersonCard",
   components: {
@@ -34,6 +34,7 @@ export default defineComponent({
   },
   data() {
     return {
+      canBeShowed: !["/register"]!.includes(window.location.pathname),
       icons: [
         {
           icon: planetOutline,
@@ -47,6 +48,11 @@ export default defineComponent({
         },
       ],
     };
+  },
+  watch: {
+    $route() {
+      this.canBeShowed = !["/register"]!.includes(window.location.pathname);
+    },
   },
   methods: {
     setActiveFooterIcon(icon) {

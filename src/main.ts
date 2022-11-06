@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import { IonicVue } from "@ionic/vue";
 import { UsersService } from "./services/users.service";
+import AuthService from "./services/auth.service";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
 
@@ -23,22 +24,34 @@ import "@ionic/vue/css/display.css";
 import "./theme/variables.css";
 
 const app = createApp(App).use(IonicVue).use(router);
+
+//Services
 const usersService = new UsersService();
+const authService = new AuthService();
 
-async function getUserData() {
-  const userData = await usersService.getLoggedUserData();
-  return userData;
-}
+//Data
+const forbiddenRoutes = ["/register"];
+const actualRoute = window.location.pathname;
 
-function sendUserToCorrectPage(userData) {
-  if (userData.user) {
+async function sendUserToCorrectPage(userData) {
+  if (userData) {
     router.push("/home");
+    console.log("User is logged in");
   } else {
     router.push("/register");
+    console.log("User is not logged in");
   }
 }
+
 router.isReady().then(async () => {
   app.mount("#app");
-  const userData = await getUserData();
+  const userData = await usersService.getLoggedUserData();
   sendUserToCorrectPage(userData);
+  sessionStorage.setItem("user-data", JSON.stringify(userData.user));
+  if (!forbiddenRoutes.includes(actualRoute)) {
+    if (!(await usersService.userExists(userData))) {
+      console.log("El usuario no existe");
+      // authService.registerUser(userData);
+    }
+  }
 });
