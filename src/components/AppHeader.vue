@@ -1,5 +1,5 @@
 <template>
-  <ion-header class="ion-no-border">
+  <ion-header class="ion-no-border" v-if="canBeShowed">
     <ion-toolbar class="centered">
       <ion-title class="ion-text-center"> Titulo ejemplo </ion-title>
     </ion-toolbar>
@@ -16,6 +16,11 @@ export default defineComponent({
     IonHeader,
     IonToolbar,
     IonTitle,
+  },
+  data() {
+    return {
+      canBeShowed: !["/onboarding"]!.includes(window.location.pathname),
+    };
   },
 });
 </script>

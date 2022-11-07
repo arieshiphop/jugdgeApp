@@ -46,7 +46,7 @@ async function sendUserToCorrectPage(userData) {
 router.isReady().then(async () => {
   app.mount("#app");
   const userData = await usersService.getLoggedUserData();
-  sendUserToCorrectPage(userData);
+  // sendUserToCorrectPage(userData);
   sessionStorage.setItem("user-data", JSON.stringify(userData.user));
   if (!forbiddenRoutes.includes(actualRoute)) {
     if (!(await usersService.userExists(userData))) {

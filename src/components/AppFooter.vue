@@ -34,7 +34,9 @@ export default defineComponent({
   },
   data() {
     return {
-      canBeShowed: !["/register"]!.includes(window.location.pathname),
+      canBeShowed: !["/register", "/onboarding"]!.includes(
+        window.location.pathname
+      ),
       icons: [
         {
           icon: planetOutline,
