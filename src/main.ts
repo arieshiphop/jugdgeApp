@@ -31,6 +31,7 @@ const authService = new AuthService();
 
 //Data
 const forbiddenRoutes = ["/register"];
+const allowedRoutes = ["/home", "/"];
 const actualRoute = window.location.pathname;
 
 async function sendUserToCorrectPage(userData) {
@@ -47,11 +48,7 @@ router.isReady().then(async () => {
   app.mount("#app");
   const userData = await usersService.getLoggedUserData();
   // sendUserToCorrectPage(userData);
-  sessionStorage.setItem("user-data", JSON.stringify(userData.user));
-  if (!forbiddenRoutes.includes(actualRoute)) {
-    if (!(await usersService.userExists(userData))) {
-      console.log("El usuario no existe");
-      // authService.registerUser(userData);
-    }
+  if (userData) {
+    sessionStorage.setItem("user-data", JSON.stringify(userData.user));
   }
 });

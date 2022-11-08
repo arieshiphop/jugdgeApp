@@ -1,5 +1,5 @@
 export default interface Person {
-  id: number;
+  id_user: string;
   name: string;
   ubication: string;
   picture: string;

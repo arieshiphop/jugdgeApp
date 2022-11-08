@@ -3,6 +3,9 @@ export default class AuthService {
   async loginWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: "http://localhost:8100/redirect",
+      },
     });
     if (error) {
       console.log(error);

@@ -20,6 +20,7 @@
 import { defineComponent } from "vue";
 import { IonPage } from "@ionic/vue";
 import Auth from "@/services/auth.service";
+import { UsersService } from "@/services/users.service";
 export default defineComponent({
   name: "RegisterPage",
   components: {
@@ -30,11 +31,21 @@ export default defineComponent({
       password: "",
       email: "",
       auth: new Auth(),
+      usersService: new UsersService(),
     };
   },
   methods: {
+    goTo(route: string) {
+      this.$router.push(route);
+    },
     async register() {
       await this.auth.loginWithGoogle();
+
+      // const userData = await this.usersService.getLoggedUserData();
+      // if (await this.usersService.userExists(userData)) {
+      // } else {
+      //   await this.auth.loginWithGoogle();
+      // }
     },
   },
 });

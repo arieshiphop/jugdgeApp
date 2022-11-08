@@ -19,8 +19,13 @@ export default defineComponent({
   },
   data() {
     return {
-      canBeShowed: !["/onboarding"]!.includes(window.location.pathname),
+      canBeShowed: false,
     };
+  },
+  watch: {
+    $route() {
+      this.canBeShowed = !["/onboarding"]!.includes(window.location.pathname);
+    },
   },
 });
 </script>

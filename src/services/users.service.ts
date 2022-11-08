@@ -17,11 +17,15 @@ export class UsersService {
     return data;
   }
   async getLoggedUserData() {
-    const { data, error } = await supabase.auth.getUser();
-    if (error) {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        return null;
+      }
+      return data;
+    } catch (e) {
       return null;
     }
-    return data;
   }
   async getUserByEmail(mail: string) {
     const { data, error } = await supabase

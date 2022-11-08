@@ -11,7 +11,7 @@
       <p v-else>No te quedan juicios disponibles</p>
       <person-questions
         v-if="!lockedQuestions"
-        :actualPersonId="actualPerson.id"
+        :actualPersonId="actualPerson.id_user"
         :lockedQuestions="lockedQuestions"
         :actualPersonQuestions="actualPersonQuestions"
         @onFinishQuestions="onFinishQuestions"
@@ -54,6 +54,7 @@ export default defineComponent({
         this.actualPerson.id_user
       );
       this.actualPersonQuestions = questions;
+      console.log("La persona actual es: ", this.actualPerson);
     },
   },
   methods: {

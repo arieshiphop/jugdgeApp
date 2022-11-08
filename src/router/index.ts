@@ -22,6 +22,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/onboarding/",
     component: () => import("@/views/OnboardingPage.vue"),
   },
+  {
+    path: "/redirect/",
+    component: () => import("@/views/RedirectToPage.vue"),
+  },
 ];
 
 const router = createRouter({

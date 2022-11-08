@@ -41,7 +41,7 @@ export default defineComponent({
   name: "PersonQuestions",
   props: {
     actualPersonId: {
-      type: Number,
+      type: String,
       required: true,
     },
     lockedQuestions: {
