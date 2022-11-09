@@ -51,5 +51,7 @@
 		<string>Photo Library is used to save photos</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Photo Library is used to save photos</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Microphone is used to record audio</string>
 	</dict>
 </plist>

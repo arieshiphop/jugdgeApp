@@ -31,4 +31,12 @@ export class UserQuestionsService {
     const answersListSplitted = answersList.split(",");
     return answersListSplitted;
   }
+  async getAllQuestionsTitles() {
+    const { data, error } = await supabase.from("questions").select("title,id");
+    if (error) {
+      console.log(error);
+    }
+    console.log(data);
+    return data;
+  }
 }

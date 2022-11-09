@@ -35,6 +35,7 @@ const allowedRoutes = ["/home", "/"];
 const actualRoute = window.location.pathname;
 
 async function sendUserToCorrectPage(userData) {
+  // const doneOnboarding = localStorage.getItem("doneOnboarding");
   if (userData) {
     router.push("/home");
     console.log("User is logged in");

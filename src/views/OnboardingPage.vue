@@ -3,6 +3,8 @@
     <main class="body">
       <onboarding-intro v-if="actualStep == 0" />
       <onboarding-form v-if="actualStep == 1" />
+      <onboarding-questions v-if="actualStep == 2" />
+      <onboarding-audio v-if="actualStep == 3" />
       <button @click="nextStep">
         Continuar
         <img src="../../public/assets/icons/button-continue.svg" alt="" />
@@ -16,12 +18,16 @@ import { IonPage } from "@ionic/vue";
 import { defineComponent } from "vue";
 import OnboardingIntro from "@/components/OnboardingIntro.vue";
 import OnboardingForm from "@/components/OnboardingForm.vue";
+import OnboardingQuestions from "@/components/OnboardingQuestions.vue";
+import OnboardingAudio from "@/components/OnboardingAudio.vue";
 export default defineComponent({
   name: "OnboardingPage",
   components: {
     IonPage,
     OnboardingIntro,
     OnboardingForm,
+    OnboardingQuestions,
+    OnboardingAudio,
   },
   data() {
     return {
